@@ -6,6 +6,7 @@ const sampleProduct = ([
     oldPrice: 1500, 
     price: 1200,
     mfg: "23 June 2022",
+    category: "HomeDecore"
   },
   {
     title: "Handwoven Rug",
@@ -14,6 +15,7 @@ const sampleProduct = ([
     oldPrice: 2250, 
     price: 1800,
     mfg: "14 November 2022",
+    category: "HomeDecore"
   },
   {
     title: "Ceramic Vase",
@@ -22,6 +24,7 @@ const sampleProduct = ([
     oldPrice: 1062.5, 
     price: 850,
     mfg: "21 May 2021",
+    category: "HomeDecore",
   },
   {
     title: "Gold Earrings",
@@ -30,6 +33,7 @@ const sampleProduct = ([
     oldPrice: 4000,
     price: 3200,
     mfg: "7 July 2022",
+    category: "FashionAccessories",
   },
   {
     title: "Diamond Ring",
@@ -38,6 +42,7 @@ const sampleProduct = ([
     oldPrice: 18750, 
     price: 15000,
     mfg: "25 December 2020",
+    category: "jewellery",
   },
   {
     title: "Silk Scarf",
@@ -46,6 +51,7 @@ const sampleProduct = ([
     oldPrice: 1500, 
     price: 1200,
     mfg: "15 October 2021",
+    category: "jewellery",
   },
   {
     title: "Sunglasses",
@@ -54,6 +60,7 @@ const sampleProduct = ([
     oldPrice: 875, 
     price: 700,
     mfg: "5 March 2023",
+    category: "FashionAccessories",
   },
   {
     title: "Organic Face Cream",
@@ -62,6 +69,7 @@ const sampleProduct = ([
     oldPrice: 625, 
     price: 500,
     mfg: "19 January 2022",
+    category: "PersonalCare",
   },
   {
     title: "Aloe Vera Gel",
@@ -70,6 +78,7 @@ const sampleProduct = ([
     oldPrice: 375, 
     price: 300,
     mfg: "22 August 2021",
+    category: "PersonalCare",
   },
   {
     title: "Knitting Kit",
@@ -78,6 +87,7 @@ const sampleProduct = ([
     oldPrice: 1375, 
     price: 1100,
     mfg: "10 February 2023",
+    category: "CraftandDiykit",
   },
   {
     title: "Paint-by-Numbers Set",
@@ -86,6 +96,7 @@ const sampleProduct = ([
     oldPrice: 1187.5, 
     price: 950,
     mfg: "3 April 2021",
+    category:"CraftandDiykit",
   },
   {
     title: "Stainless Steel Knife Set",
@@ -94,6 +105,7 @@ const sampleProduct = ([
     oldPrice: 3125, 
     price: 2500,
     mfg: "30 June 2022",
+    category:"KitchenItem",
   },
   {
     title: "Cast Iron Skillet",
@@ -102,6 +114,7 @@ const sampleProduct = ([
     oldPrice: 1750, 
     price: 1400,
     mfg: "11 November 2020",
+    category:"KitchenItem",
   },
   {
     title: "Gluten-Free Cookies",
@@ -110,6 +123,7 @@ const sampleProduct = ([
     oldPrice: 437.5, 
     price: 350,
     mfg: "20 September 2023",
+    category:"HomeMadeFood",
   },
   {
     title: "Vegan Brownies",
@@ -118,6 +132,7 @@ const sampleProduct = ([
     oldPrice: 500, 
     price: 400,
     mfg: "28 December 2022",
+    category:"HomeMadeFood",
   },
 ]);
 
