@@ -2,4 +2,22 @@
 <div class="img-box">
     <img src="/images/ProductDetail.png" alt="" class="product-detail-img">
     <h3>You’re just one step away from <br>owning something awesome! </h3>
+    <div class="container image_container">
+        <div class="row  align-items-center">
+        <div class="col-4 offset-3">
+            <img src="<%= Product.image %>" class="product_img ">
+        </div>
+
+        <div class="col-4">
+            <h2><%= Product.title %></h2>
+            <h2><%= Product.price %></h2>
+            <hr>
+            <p><%= Product.description %></p>
+            <p class="mfg">MFG: <%= Product.mfg %></p>
+            <p class="category">Category: <%= Product.category %></p>
+            <button class="btn cart_btn">Add to cart</button>
+            <button class="btn buy_btn">Buy Now</button>
+        </div>
+    </div>
+</div>
 </div>
