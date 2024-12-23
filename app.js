@@ -25,21 +25,30 @@ app.use(express.urlencoded({ extended: true }));
 app.engine("ejs", ejsMate);
 app.use(express.static(path.join(__dirname, "/public/css")));
 app.use(express.static(path.join(__dirname, "/public/js")));
-app.use(express.static(path.join(__dirname, "/public/assest")));
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
+// show all products
 app.get("/products", async (req, res) => {
   const allProducts = await product.find({});
   res.render("product/product", { allProducts });
 });
 
+// home page
 app.get("/home", (req, res) => {
   res.render("product/home");
 });
 
-app.get("/products/filter/:id", async (req, res) => {
-  let { id } = req.params;
-  let filterProduct = await product.find({category: id});
+
+app.get("/products/filter/:category", async (req, res) => {
+  let { category } = req.params;
+  let filterProduct = await product.find({category: category});
   res.render("product/filter.ejs", {filterProduct});
+});
+
+app.get("/products/:id", async(req, res) => {
+  let{ id } = req.params;
+  let Product = await product.findById( id );
+  res.render("product/show.ejs", { Product });
 });
 
 
