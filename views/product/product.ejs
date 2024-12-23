@@ -3,6 +3,7 @@
   <div class="pro-container">
   <div class="pro-cont">
     <% for(let product of allProducts) { %>
+      <a href="/products/<%= product._id %>">
     <div class="products">
         <div class="product-img-container">
       <img src="<%= product.image %>" alt="" class="product-img" />
@@ -14,6 +15,7 @@
       <p>&#8377;<%= product.price %></p>
     </div>
     </div>
+  </a>
     <% } %>
   </div>
 </div>

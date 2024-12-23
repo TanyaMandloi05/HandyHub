@@ -334,3 +334,19 @@ a {
     text-decoration: none;
     color: black;
 }
+
+/* show page style */
+
+.product-detail-img {
+    width: 97rem;
+    height: 30rem;
+}
+
+h3 {
+    position: fixed;
+    top: 20rem;
+    bottom: 20rem;
+    color: #ED2939;
+    left: 5rem;
+    line-height: 2.8rem;
+}
