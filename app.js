@@ -45,11 +45,13 @@ app.get("/products/filter/:category", async (req, res) => {
   res.render("product/filter.ejs", {filterProduct});
 });
 
+// show single product
 app.get("/products/:id", async(req, res) => {
   let{ id } = req.params;
   let Product = await product.findById( id );
   res.render("product/show.ejs", { Product });
 });
+
 
 
 app.listen(port, () => {
