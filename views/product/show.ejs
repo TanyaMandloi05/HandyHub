@@ -9,9 +9,9 @@
       <img src="<%= Product.image %>" class="product_img" />
     </div>
 
-    <div class="col-md-4 col-12 pb-5 mb-5 ms-md-0 ms-3 ">
-      <h2 class="  mt-2"><%= Product.title %></h2>
-      <h2> &#8377;<%= Product.price %></h2>
+    <div class="col-md-4 col-12 pb-5 mb-5 ms-md-0 ms-3">
+      <h2 class="mt-2"><%= Product.title %></h2>
+      <h2>&#8377;<%= Product.price %></h2>
       <hr />
       <p><%= Product.description %></p>
       <p class="mfg">MFG: <%= Product.mfg %></p>
@@ -20,4 +20,84 @@
       <button class="btn buy_btn">Buy Now</button>
     </div>
   </div>
+
+  <div class="container ms-5 pb-5">
+    <div class="col-12 ms-5">
+      <h4 class="ms-5 mb-4">All reviews</h4>
+      <hr />
+    </div>
+
+    <div class="row offset-2 mb-5 d-flex justify-content-center">
+      <div class="col-10 card">
+        <h5 class="mt-4">Tanya Mandloi</h5>
+        <p>stars</p>
+        <p>
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Suscipit
+          labore cupiditate at, omnis eveniet explicabo necessitatibus neque
+          repudiandae soluta cumque nam accusantium, provident culpa sequi
+          laudantium saepe similique inventore ullam.
+        </p>
+      </div>
+
+      <div class="col-10 card mt-4">
+        <h5 class="mt-4">Tanya Mandloi</h5>
+        <p>stars</p>
+        <p>
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Suscipit
+          labore cupiditate at, omnis eveniet explicabo necessitatibus neque
+          repudiandae soluta cumque nam accusantium, provident culpa sequi
+          laudantium saepe similique inventore ullam.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <form action="/products/:id/review">
+  <div class="container">
+    <div class="row offset-2 mb-5 d-flex justify-content-center">
+      <div class="col-10">
+        <h4>Leave a review</h4>
+      </div>
+
+      <div class="col-10">
+        <textarea
+          name="comment"
+          id="comment"
+          placeholder="Your message "
+          class="form-control"
+        ></textarea>
+      </div>
+
+      <div class="col-10">
+        <label for="rating" class="mt-3">Your rating</label>
+        <fieldset class="starability-fade mt-2">
+          <!-- <legend>First rating:</legend> -->
+          <input
+            type="radio"
+            id="no-rate"
+            class="input-no-rate"
+            name="rating"
+            value="1"
+            checked
+            aria-label="No rating."
+          />
+          <input type="radio" id="first-rate1" name="rating" value="1" />
+          <label for="first-rate1" title="Terrible">1 star</label>
+          <input type="radio" id="first-rate2" name="rating" value="2" />
+          <label for="first-rate2" title="Not good">2 stars</label>
+          <input type="radio" id="first-rate3" name="rating" value="3" />
+          <label for="first-rate3" title="Average">3 stars</label>
+          <input type="radio" id="first-rate4" name="rating" value="4" />
+          <label for="first-rate4" title="Very good">4 stars</label>
+          <input type="radio" id="first-rate5" name="rating" value="5" />
+          <label for="first-rate5" title="Amazing">5 stars</label>
+        </fieldset>
+      </div>
+
+      <div class="col-10 mb-3">
+        <button class="btn btn-primary">Post Review</button>
+      </div>
+    </div>
+  </div>
 </div>
+</form>

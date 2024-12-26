@@ -52,6 +52,11 @@ app.get("/products/:id", async(req, res) => {
   res.render("product/show.ejs", { Product });
 });
 
+// rating
+app.post("/products/:id/review", async(req, res) => {
+  res.send("uploaded");
+})
+
 
 
 app.listen(port, () => {
