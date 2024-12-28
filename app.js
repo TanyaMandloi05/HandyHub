@@ -5,6 +5,7 @@ const product = require("./models/product");
 const path = require("path");
 const ejsMate = require("ejs-mate");
 const review = require("./models/review");
+const methodOverride = require('method-override');
 
 const port = 8080;
 
@@ -20,6 +21,7 @@ async function main() {
   await mongoose.connect("mongodb://127.0.0.1:27017/product");
 }
 
+app.use(methodOverride('_method'));
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: true }));
@@ -67,6 +69,14 @@ app.post("/products/:id/reviews", async(req, res) => {
   res.redirect(`/products/${id}`);
  
 });
+
+// review delete route
+app.delete("/products/:id/reviews/:reviewId", async(req, res) => {
+  let{id, reviewId} = req.params;
+   let deleteReview =  await review.findByIdAndDelete(reviewId);
+  deleteObjId = await product.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
+  res.redirect(`/products/${id}`);
+})
 
 
 
