@@ -21,39 +21,30 @@
     </div>
   </div>
 
+
+  
   <div class="container ms-5 pb-5">
     <div class="col-12 ms-5">
       <h4 class="ms-5 mb-4">All reviews</h4>
       <hr />
     </div>
 
+   
     <div class="row offset-2 mb-5 d-flex justify-content-center">
-      <div class="col-10 card">
+      <% for(reviews of Product.reviews) {%>
+      <div class="col-10 card mt-3">
         <h5 class="mt-4">Tanya Mandloi</h5>
-        <p>stars</p>
+        <p class="starability-result card-text" data-rating = <%= reviews.rating %>> </p>
         <p>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Suscipit
-          labore cupiditate at, omnis eveniet explicabo necessitatibus neque
-          repudiandae soluta cumque nam accusantium, provident culpa sequi
-          laudantium saepe similique inventore ullam.
+         <%= reviews.comment %>
         </p>
       </div>
-
-      <div class="col-10 card mt-4">
-        <h5 class="mt-4">Tanya Mandloi</h5>
-        <p>stars</p>
-        <p>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Suscipit
-          labore cupiditate at, omnis eveniet explicabo necessitatibus neque
-          repudiandae soluta cumque nam accusantium, provident culpa sequi
-          laudantium saepe similique inventore ullam.
-        </p>
-      </div>
-    </div>
+    <% } %>
+  </div>
   </div>
 
-  <form action="/products/:id/review">
-  <div class="container">
+  <form action="/products/<%= Product.id %>/reviews" method="post">
+  <div class="container mt-5 mb-5">
     <div class="row offset-2 mb-5 d-flex justify-content-center">
       <div class="col-10">
         <h4>Leave a review</h4>
@@ -61,7 +52,7 @@
 
       <div class="col-10">
         <textarea
-          name="comment"
+          name="review[comment]"
           id="comment"
           placeholder="Your message "
           class="form-control"
@@ -81,21 +72,21 @@
             checked
             aria-label="No rating."
           />
-          <input type="radio" id="first-rate1" name="rating" value="1" />
+          <input type="radio" id="first-rate1" name="review[rating]" value="1" />
           <label for="first-rate1" title="Terrible">1 star</label>
-          <input type="radio" id="first-rate2" name="rating" value="2" />
+          <input type="radio" id="first-rate2" name="review[rating]" value="2" />
           <label for="first-rate2" title="Not good">2 stars</label>
-          <input type="radio" id="first-rate3" name="rating" value="3" />
+          <input type="radio" id="first-rate3" name="review[rating]" value="3" />
           <label for="first-rate3" title="Average">3 stars</label>
-          <input type="radio" id="first-rate4" name="rating" value="4" />
+          <input type="radio" id="first-rate4" name="review[rating]" value="4" />
           <label for="first-rate4" title="Very good">4 stars</label>
-          <input type="radio" id="first-rate5" name="rating" value="5" />
+          <input type="radio" id="first-rate5" name="review[rating]" value="5" />
           <label for="first-rate5" title="Amazing">5 stars</label>
         </fieldset>
       </div>
 
-      <div class="col-10 mb-3">
-        <button class="btn btn-primary">Post Review</button>
+      <div class="col-10 mb-5">
+        <button class="btn review-btn">Post Review</button>
       </div>
     </div>
   </div>

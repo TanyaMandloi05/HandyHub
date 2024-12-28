@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 const schema = mongoose.Schema;
 
-const reviewSchema = new Schema({
+const reviewSchema = new schema({
     comment: String,
         rating:{
             type: Number,
@@ -15,4 +15,4 @@ const reviewSchema = new Schema({
         },
 });
 
-mongoose.model = mongoose.model("Review", reviewSchema);
+module.exports = mongoose.model("Review", reviewSchema);

@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const schema = mongoose.Schema;
+const review = require("./review");
 
 const productSchema = new schema({
   title: {
@@ -32,9 +33,23 @@ const productSchema = new schema({
 
   category: {
     type: String,
-    enum: ["HomeDecore", "jewellery", "FashionAccessories", "PersonalCare", "CraftandDiykit", "KitchenItem", "HomeMadeFood"],
+    enum: [
+      "HomeDecore",
+      "jewellery",
+      "FashionAccessories",
+      "PersonalCare",
+      "CraftandDiykit",
+      "KitchenItem",
+      "HomeMadeFood",
+    ],
   },
 
+  reviews: [
+    {
+      type: schema.Types.ObjectId,
+      ref: "Review",
+    },
+  ],
 });
 
 const product = mongoose.model("product", productSchema);

@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const product = require("./models/product");
 const path = require("path");
 const ejsMate = require("ejs-mate");
+const review = require("./models/review");
 
 const port = 8080;
 
@@ -48,14 +49,25 @@ app.get("/products/filter/:category", async (req, res) => {
 // show single product
 app.get("/products/:id", async(req, res) => {
   let{ id } = req.params;
-  let Product = await product.findById( id );
+  let Product = await product.findById( id ).populate("reviews");
   res.render("product/show.ejs", { Product });
 });
 
 // rating
-app.post("/products/:id/review", async(req, res) => {
-  res.send("uploaded");
-})
+app.post("/products/:id/reviews", async(req, res) => {
+  let { id } = req.params;
+  let reviewProduct = await product.findById(id).populate("reviews");
+  let newReview = new review(req.body.review);
+
+  reviewProduct.reviews.push(newReview);
+
+  await reviewProduct.save();
+  await newReview.save();
+
+  res.redirect(`/products/${id}`);
+ 
+});
+
 
 
 
