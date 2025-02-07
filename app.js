@@ -1,11 +1,17 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
-const product = require("./models/product");
 const path = require("path");
 const ejsMate = require("ejs-mate");
-const review = require("./models/review");
 const methodOverride = require("method-override");
+const session = require("express-session");
+const user = require("./models/user");
+const passport = require("passport");
+const googleStrategy = require("passport-google-oauth20").Strategy;
+const localStrategy = require("passport-local");
+const productRouter = require("./routes/product");
+const reviewRouter = require("./routes/rating");
+const flash = require('connect-flash');
 
 const port = 8080;
 
@@ -29,53 +35,64 @@ app.engine("ejs", ejsMate);
 app.use(express.static(path.join(__dirname, "/public/css")));
 app.use(express.static(path.join(__dirname, "/public/js")));
 app.use("/images", express.static(path.join(__dirname, "images")));
+app.use(flash());
 
-// show all products
-app.get("/products", async (req, res) => {
-  const allProducts = await product.find({});
-  res.render("product/product", { allProducts });
+const sessionOpt = {
+  secret: "mysecret", //A string used to sign the session ID cookie for security.
+  resave: false, //Ensures the session is not saved to the session store on every request if nothing has changed
+  saveUninitialized: true,
+  cookie: {
+    expires: Date.now() + 14 * 24 * 60 * 60 * 1000,
+    maxAge: 14 * 24 * 60 * 60 * 1000,
+    httpOnly: true,
+  },
+};
+
+app.use(session(sessionOpt));
+app.use(passport.initialize()); //Initializes Passport for authentication.
+app.use(passport.session()); // Integrates Passport with Express sessions to store user authentication data in sessions.
+
+passport.use(new localStrategy(user.authenticate()));
+// passport.use(new googleStrategy(user.authenticate()));
+passport.serializeUser(user.serializeUser()); //Converts the user object into a session-storable format (e.g., user ID).
+passport.deserializeUser(user.deserializeUser());
+
+app.use((req, res, next) => {
+  res.locals.success = req.flash("success");
+  res.locals.error = req.flash("error");
+  next();
+})
+
+app.get("/signup", (req, res) => {
+  res.render("user/signup.ejs");
 });
+
+app.get("/login", (req, res) => {
+  res.render("user/login.ejs");
+});
+
+app.post("/signup", async (req, res) => {
+  let { username, email, password } = req.body;
+  let newUser = new user({ username, email });
+  let registerUser = await user.register(newUser, password);
+  console.log(registerUser);
+  res.redirect("/products");
+});
+
+app.post(
+  "/login",
+  passport.authenticate("local", { failureRedirect: "/login", failureFlash: true}),
+  async (req, res) => {
+    res.redirect("/home");
+  }
+);
+
+app.use("/products", productRouter);
+app.use("/products/:id/reviews", reviewRouter);
 
 // home page
 app.get("/home", (req, res) => {
   res.render("product/home");
-});
-
-app.get("/products/filter/:category", async (req, res) => {
-  let { category } = req.params;
-  let filterProduct = await product.find({ category: category });
-  res.render("product/filter.ejs", { filterProduct });
-});
-
-// show single product
-app.get("/products/:id", async (req, res) => {
-  let { id } = req.params;
-  let Product = await product.findById(id).populate("reviews");
-  res.render("product/show.ejs", { Product });
-});
-
-// rating
-app.post("/products/:id/reviews", async (req, res) => {
-  let { id } = req.params;
-  let reviewProduct = await product.findById(id).populate("reviews");
-  let newReview = new review(req.body.review);
-
-  reviewProduct.reviews.push(newReview);
-
-  await reviewProduct.save();
-  await newReview.save();
-
-  res.redirect(`/products/${id}`);
-});
-
-// review delete route
-app.delete("/products/:id/reviews/:reviewId", async (req, res) => {
-  let { id, reviewId } = req.params;
-  let deleteReview = await review.findByIdAndDelete(reviewId);
-  deleteObjId = await product.findByIdAndUpdate(id, {
-    $pull: { reviews: reviewId },
-  });
-  res.redirect(`/products/${id}`);
 });
 
 app.listen(port, () => {
