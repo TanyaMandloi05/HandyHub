@@ -11,7 +11,9 @@ const googleStrategy = require("passport-google-oauth20").Strategy;
 const localStrategy = require("passport-local");
 const productRouter = require("./routes/product");
 const reviewRouter = require("./routes/rating");
+const userRouter = require("./routes/user");
 const flash = require('connect-flash');
+const ExpressError = require("./utils/ExpressError");
 
 const port = 8080;
 
@@ -60,35 +62,19 @@ passport.deserializeUser(user.deserializeUser());
 app.use((req, res, next) => {
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
+  res.locals.currUser = req.user;
   next();
 })
 
-app.get("/signup", (req, res) => {
-  res.render("user/signup.ejs");
-});
+app.get("/user/dashboard", (req, res) => {
+  res.render("user/dashBoard.ejs");
+})
 
-app.get("/login", (req, res) => {
-  res.render("user/login.ejs");
-});
 
-app.post("/signup", async (req, res) => {
-  let { username, email, password } = req.body;
-  let newUser = new user({ username, email });
-  let registerUser = await user.register(newUser, password);
-  console.log(registerUser);
-  res.redirect("/products");
-});
-
-app.post(
-  "/login",
-  passport.authenticate("local", { failureRedirect: "/login", failureFlash: true}),
-  async (req, res) => {
-    res.redirect("/home");
-  }
-);
 
 app.use("/products", productRouter);
 app.use("/products/:id/reviews", reviewRouter);
+app.use(userRouter);
 
 // home page
 app.get("/home", (req, res) => {
@@ -98,3 +84,12 @@ app.get("/home", (req, res) => {
 app.listen(port, () => {
   console.log("app is listening to the port 8080");
 });
+
+app.all("*", (req, res, next) => {
+  next( new ExpressError(404, "Bad request"));
+})
+
+app.use((err, req, res, next) => {
+  let{statusCode="500", message="something went wrong"} = err;
+  res.status(statusCode).send(message);
+})
