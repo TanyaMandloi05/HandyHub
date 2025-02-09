@@ -33,11 +33,20 @@
     </div>
   </div>
   <ul>
-    <li class="nav-item d-inline me-3 ">
-      <a class="active" aria-current="page" href="/signup">signup</a>
-    </li>
-    <li class="nav-item d-inline me-3">
-      <a class="active" aria-current="page" href="/login">login</a>
-    </li>
+    <% if(!currUser) { %>
+      <li class="nav-item d-inline me-3 ">
+        <a class="active" aria-current="page" href="/signup">signup</a>
+      </li>
+      <li class="nav-item d-inline me-3">
+        <a class="active" aria-current="page" href="/login">login</a>
+      </li>
+    <% } %>
+
+    <% if(currUser) { %>
+      <li class="nav-item d-inline me-3">
+        <a class="active" aria-current="page" href="/logout">logout</a>
+      </li>
+    <% } %>
+    
   </ul>
 </nav>
