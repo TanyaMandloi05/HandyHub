@@ -86,7 +86,7 @@ app.listen(port, () => {
 });
 
 app.all("*", (req, res, next) => {
-  next( new ExpressError(404, "Bad request"));
+  next(new ExpressError(404, "Bad request"));
 })
 
 app.use((err, req, res, next) => {

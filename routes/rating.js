@@ -9,13 +9,17 @@ router.post("", wrapAsync(async (req, res) => {
     let { id } = req.params;
     let reviewProduct = await product.findById(id).populate("reviews");
     let newReview = new review(req.body.review);
-  
+
+    if(req.user) {
     reviewProduct.reviews.push(newReview);
-  
     await reviewProduct.save();
     await newReview.save();
-  
     res.redirect(`/products/${id}`);
+    } else {
+      req.flash("error", "you need to logged in or signup to post a review");
+      res.redirect("/login");
+    }
+    
   }));
   
   // review delete route

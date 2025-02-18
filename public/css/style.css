@@ -472,3 +472,23 @@ h3 {
 .google:hover {
   background-color: #F8F2FF;
 }
+
+/* daashboard */
+.list-group-item:hover{
+  background-color: #f96822;
+  cursor: pointer;
+  color: #fff !important;
+}
+
+.list-group-item {
+  border-radius: 0.5rem !important;
+}
+
+.list-group-item a {
+  color: #848484;
+}
+
+.list-group-item:hover a {
+  color: #fff !important;
+}
+
