@@ -31,3 +31,16 @@ arrow.addEventListener("click", () => {
       })
   })()
 
+ 
+
+  const hearts = document.querySelectorAll(".fa-heart");
+
+// Loop over each heart because querySelectorAll returns a NodeList
+hearts.forEach(heart => {
+  heart.addEventListener("click", () => { 
+    heart.classList.toggle("fa-regular");
+    heart.classList.toggle("fa-solid");
+  });
+});
+
+
