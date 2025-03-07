@@ -7,6 +7,9 @@
   <div class="row align-items-center">
     <div class="col-md-4 col-12 offset-md-3 text-center text-md-left">
       <img src="<%= Product.image %>" class="product_img" />
+      <div class="wishlist">
+        <i class="fa-regular fa-heart wishlistHeart"></i>
+      </div>
     </div>
 
     <div class="col-md-4 col-12 pb-5 mb-5 ms-md-0 ms-3">
@@ -22,18 +25,18 @@
   </div>
 
 
-  
+  <% if(Product.reviews.length) { %>
   <div class="container ms-5 pb-5">
     <div class="col-12 ms-5">
       <h4 class="ms-5 mb-4">All reviews</h4>
       <hr />
     </div>
 
-   <% if(currUser) { %>
+   
     <div class="row offset-2 mb-5 d-flex justify-content-center">
       <% for(reviews of Product.reviews) {%>
       <div class="col-10 card mt-3">
-        <h5 class="mt-4"><%= reviews.name %></h5>
+        <h5 class="mt-4"><%= reviews.author.username%></h5>
         <p class="starability-result card-text" data-rating = <%= reviews.rating %>></p>
         <p>
          <%= reviews.comment %>
@@ -48,9 +51,9 @@
   </div>
   </div>
 
-   <% } %>
+<% } %>
    
-
+   <% if(currUser) { %>
   <form action="/products/<%= Product.id %>/reviews" method="post" novalidate class="needs-validation">
   <div class="container mt-5 mb-5">
     <div class="row offset-2 mb-5 d-flex justify-content-center">
@@ -58,7 +61,7 @@
         <label for="name" class="mb-2">Your Name</label> 
         <textarea
           name="review[name]"
-          id="name"
+          id="author"
           placeholder="Your name"
           class="form-control"
           required
@@ -115,3 +118,4 @@
   </div>
 </div>
 </form>
+<% } %>

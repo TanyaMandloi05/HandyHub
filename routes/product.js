@@ -20,7 +20,7 @@ router.get("/filter/:category", wrapAsync(async (req, res) => {
   // show single product
 router.get("/:id", wrapAsync(async (req, res) => {
     let { id } = req.params;
-    let Product = await product.findById(id).populate("reviews");
+    let Product = await product.findById(id).populate({path:"reviews", populate:{path: "author"}})
     res.render("product/show.ejs", { Product });
 }));
 

@@ -85,11 +85,11 @@ app.listen(port, () => {
   console.log("app is listening to the port 8080");
 });
 
-app.all("*", (req, res, next) => {
-  next(new ExpressError(404, "Bad request"));
-})
+// app.all("*", (req, res, next) => {
+//   next(new ExpressError(404, "Bad request"));
+// })
 
-app.use((err, req, res, next) => {
-  let{statusCode="500", message="something went wrong"} = err;
-  res.status(statusCode).send(message);
-})
+// app.use((err, req, res, next) => {
+//   let{statusCode="500", message="something went wrong"} = err;
+//   res.status(statusCode).send(message);
+// })
