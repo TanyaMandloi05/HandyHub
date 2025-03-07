@@ -6,30 +6,35 @@ const wrapAsync = require("../utils/wrapAsync");
 
 // rating
 router.post("", wrapAsync(async (req, res) => {
-    let { id } = req.params;
-    let reviewProduct = await product.findById(id).populate("reviews");
-    let newReview = new review(req.body.review);
+  let { id } = req.params;  // Extracting product ID from the URL params
+  let reviewProduct = await product.findById(id)  // Finding product by ID and populating its reviews
+  console.log(reviewProduct);
+  // let reviewProduct = await product.findById(id).populate("reviews");
+  let newReview = new review(req.body.review);  // Creating a new review using data from the request body
+  newReview.author = req.user._id;
+  console.log(newReview);
+  reviewProduct.reviews.push(newReview);  // Adding the new review to the product's reviews array
+  await reviewProduct.save();  // Saving the updated product with the new review
+  await newReview.save();  // Saving the new review itself
+  res.redirect(`/products/${id}`);  // Redirecting to the product page
+}));
 
-    if(req.user) {
-    reviewProduct.reviews.push(newReview);
-    await reviewProduct.save();
-    await newReview.save();
-    res.redirect(`/products/${id}`);
-    } else {
-      req.flash("error", "you need to logged in or signup to post a review");
-      res.redirect("/login");
-    }
-    
-  }));
   
-  // review delete route
-  router.delete("/:reviewId", wrapAsync(async (req, res) => {
-    let { id, reviewId } = req.params;
+// review delete route
+router.delete("/:reviewId", wrapAsync(async (req, res) => {
+  let { id, reviewId } = req.params;
+  if(!review.author.equals(res.locals.currUser._id)){
+    req.flash("error", "you are not the author of this review");
+    res.redirect(`/products/${id}`)
+  } else {
     let deleteReview = await review.findByIdAndDelete(reviewId);
     deleteObjId = await product.findByIdAndUpdate(id, {
       $pull: { reviews: reviewId },
     });
     res.redirect(`/products/${id}`);
-  }));
+    
+  }
+ 
+}));
 
-  module.exports = router;
+module.exports = router;
