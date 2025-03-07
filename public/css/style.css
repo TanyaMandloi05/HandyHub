@@ -143,7 +143,7 @@ nav {
 
 .home .btn {
   position: absolute;
-  top: 50%;
+  top: 55%;
   left: 15%;
   background-color: #00896f;
   border: transparent;
@@ -381,14 +381,27 @@ h3 {
 
 @media (max-width: 990px) {
   .product-detail-img {
-    width: 100%;
+    width: 25rem;
     height: 20rem;
+  }
+
+  .product_img {
+    height: 20rem;
+    width: 20rem;
   }
 
   h3 {
     display: none;
   }
 }
+
+/* @media (min-width: 540px) {
+  .product-detail-img {
+    width: 36rem;
+    height: 20rem;
+  }
+} */
+
 
 /* footer */
 .footer {
@@ -491,4 +504,40 @@ h3 {
 .list-group-item:hover a {
   color: #fff !important;
 }
+
+.wishlist {
+  position: relative;
+  bottom: 390px;
+  left: 20px;
+  height: 3rem;
+  width: 3rem;
+  color: #ff4343;
+  background-color: #eeeeee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+}
+
+
+.wishlistHeart:hover {
+  color: #ff4343;
+}
+
+@media (max-width: 990px) {
+  .wishlist {
+    position: relative;
+    bottom: 300px;
+    left: 30px;
+}
+}
+
+/* @media (min-width: 540px) {
+  .wishlist {
+    position: relative;
+    bottom: 300px;
+    left: 120px;
+}
+} */
+
 
