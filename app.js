@@ -76,6 +76,10 @@ app.use("/products", productRouter);
 app.use("/products/:id/reviews", reviewRouter);
 app.use(userRouter);
 
+app.get("/wishlist", (req, res) => {
+  res.render("wishlistAndCart/wishlist.ejs");
+})
+
 // home page
 app.get("/home", (req, res) => {
   res.render("product/home");
