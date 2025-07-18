@@ -7,10 +7,16 @@
   <div class="row align-items-center">
     <div class="col-md-4 col-12 offset-md-3 text-center text-md-left">
       <img src="<%= Product.image %>" class="product_img" />
-      <form action="" method="post">
+      <!-- <form action="/wishlist/<%= Product._id %>" method="post">
       <div class="wishlist">
         <i class="fa-regular fa-heart wishlistHeart"></i>
-      </div>
+      </div> -->
+      <form action="/wishlist/<%= Product._id %>" method="POST">
+  <button type="submit" class="wishlist">
+    <i class="fa-regular fa-heart wishlistHeart"></i>
+  </button>
+</form>
+
     </form>
     </div>
 

@@ -1,1 +1,50 @@
+<!-- <% layout("/layouts/boilerplate") -%>
+<div class="container mt-5">
+  <h2>Your Wishlist</h2>
+  <div class="row">
+    <% wishlistItems.forEach(item => { %>
+      <div class="col-md-4 mb-4">
+        <div class="card">
+          <img src="<%= item.product.image %>" class="card-img-top" alt="<%= item.product.name %>">
+          <div class="card-body">
+            <h5 class="card-title"><%= item.product.name %></h5>
+            <p class="card-text">₹<%= item.product.price %></p>
+
+            <form action="/wishlist/<%= item.product._id %>?_method=DELETE" method="POST">
+              <button class="btn btn-danger">Remove</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    <% }) %>
+  </div>
+</div> -->
+
 <% layout("/layouts/boilerplate") -%>
+<div class="container mt-5">
+  <h2>Your Wishlist</h2>
+  <div class="row">
+    <% wishlistItems.forEach(item => { %>
+      <% if (item.product) { %>
+        <div class="col-md-4 mb-4">
+          <div class="card h-100 shadow-sm">
+            <img src="<%= item.product.image %>" class="card-img-top" alt="<%= item.product.name %>">
+            <div class="card-body">
+              <h5 class="card-title"><%= item.product.name %></h5>
+              <p class="card-text text-muted">₹<%= item.product.price %></p>
+
+              <form action="/wishlist/<%= item.product._id %>?_method=DELETE" method="POST">
+                <button class="btn btn-danger w-100">Remove</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      <% } else { %>
+        <!-- Optional: Handle missing product (e.g., deleted from DB) -->
+        <div class="col-md-4 mb-4">
+          <div class="alert alert-warning">Product no longer available.</div>
+        </div>
+      <% } %>
+    <% }) %>
+  </div>
+</div>

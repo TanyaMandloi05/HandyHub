@@ -11,6 +11,7 @@ const googleStrategy = require("passport-google-oauth20").Strategy;
 const localStrategy = require("passport-local");
 const productRouter = require("./routes/product");
 const reviewRouter = require("./routes/rating");
+const wishlistRouter = require("./routes/wishlist");
 const userRouter = require("./routes/user");
 const flash = require('connect-flash');
 const ExpressError = require("./utils/ExpressError");
@@ -74,6 +75,7 @@ app.get("/user/dashboard", (req, res) => {
 
 app.use("/products", productRouter);
 app.use("/products/:id/reviews", reviewRouter);
+app.use("/wishlist", wishlistRouter);
 app.use(userRouter);
 
 app.get("/wishlist", (req, res) => {
