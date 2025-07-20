@@ -3,16 +3,17 @@ const router = express.Router();
 const wrapAsync = require("../utils/wrapAsync");
 const Wishlist = require("../models/wishlist");
 const Product = require("../models/product");
-const {isLoggedIn} = require("../middleware");
-
-
+const { isLoggedIn } = require("../middleware");
 
 router.post("/:productId", isLoggedIn, async (req, res) => {
   const { productId } = req.params;
   console.log(productId);
   const userId = req.user._id;
 
-  const alreadyInWishlist = await Wishlist.findOne({ user: userId, product: productId });
+  const alreadyInWishlist = await Wishlist.findOne({
+    user: userId,
+    product: productId,
+  });
   if (alreadyInWishlist) {
     req.flash("error", "Product already in wishlist!");
     return res.redirect(`/products/${productId}`);
@@ -27,12 +28,11 @@ router.post("/:productId", isLoggedIn, async (req, res) => {
 
 router.get("", isLoggedIn, async (req, res) => {
   const userId = req.user._id;
-//   const wishlistItems = await Wishlist.find({ user: userId }).populate("product");
-  const userWishlist = await Wishlist.find({ user: req.user._id }).populate("product");
-const validWishlist = userWishlist.filter(item => item.product !== null);
-res.render("wishlistAndCart/wishlist", { wishlistItems: validWishlist });
-
-//   res.render("wishlistAndCart/wishlist", { wishlistItems });
+  const userWishlist = await Wishlist.find({ user: userId }).populate(
+    "product"
+  );
+  const validWishlist = userWishlist.filter((item) => item.product !== null);
+  res.render("wishlistAndCart/wishlist", { wishlistItems: validWishlist });
 });
 
 router.delete("/:productId", isLoggedIn, async (req, res) => {
@@ -43,8 +43,5 @@ router.delete("/:productId", isLoggedIn, async (req, res) => {
   req.flash("success", "Removed from wishlist!");
   res.redirect("/wishlist");
 });
-
-module.exports = router;
-
 
 module.exports = router;

@@ -1,3 +1,4 @@
+require('dotenv').config();
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -5,6 +6,7 @@ const path = require("path");
 const ejsMate = require("ejs-mate");
 const methodOverride = require("method-override");
 const session = require("express-session");
+const MongoStore = require('connect-mongo');
 const user = require("./models/user");
 const passport = require("passport");
 const googleStrategy = require("passport-google-oauth20").Strategy;
@@ -30,6 +32,16 @@ async function main() {
   await mongoose.connect("mongodb://127.0.0.1:27017/product");
 }
 
+// mongoose.connect(process.env.MONGO_URL, {
+//     useNewUrlParser: true,
+//     useUnifiedTopology: true
+// })
+//     .then(() => console.log(" Connected to MongoDB"))
+//     .catch((err) => console.error("MongoDB Error:", err));
+
+
+
+
 app.use(methodOverride("_method"));
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
@@ -40,7 +52,20 @@ app.use(express.static(path.join(__dirname, "/public/js")));
 app.use("/images", express.static(path.join(__dirname, "images")));
 app.use(flash());
 
+const store = MongoStore.create({
+    mongoUrl: "mongodb://127.0.0.1:27017/product",
+    crypto: {
+        secret: process.env.SECRET,
+    },
+    touchAfter: 24*3600,
+});
+
+store.on("error", () => {
+    console.log("ERROR in MONGO SESSION STORE", err);
+});
+
 const sessionOpt = {
+  store,
   secret: "mysecret", //A string used to sign the session ID cookie for security.
   resave: false, //Ensures the session is not saved to the session store on every request if nothing has changed
   saveUninitialized: true,
@@ -90,6 +115,11 @@ app.get("/home", (req, res) => {
 app.listen(port, () => {
   console.log("app is listening to the port 8080");
 });
+
+// const PORT = process.env.PORT || 4000;
+// app.listen(PORT, () => {
+//     console.log(`Server listening on http://localhost:${PORT}`);
+// });
 
 // app.all("*", (req, res, next) => {
 //   next(new ExpressError(404, "Bad request"));
