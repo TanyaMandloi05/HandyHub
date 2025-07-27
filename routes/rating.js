@@ -19,22 +19,38 @@ router.post("", wrapAsync(async (req, res) => {
   res.redirect(`/products/${id}`);  // Redirecting to the product page
 }));
 
-  
 // review delete route
+// router.delete("/:reviewId", wrapAsync(async (req, res) => {
+//   let { id, reviewId } = req.params; 
+//   if(!review.author.equal(res.locals.currUser._id)){
+//     req.flash("error", "you are not the author of this review");
+//     res.redirect(`/products/${id}`)
+//   } else {
+//     let deleteReview = await review.findByIdAndDelete(reviewId);
+//     deleteObjId = await product.findByIdAndUpdate(id, {
+//       $pull: { reviews: reviewId },
+//     });
+//     res.redirect(`/products/${id}`);
+//   }
+// }));
+
 router.delete("/:reviewId", wrapAsync(async (req, res) => {
   let { id, reviewId } = req.params;
-  if(!review.author.equals(res.locals.currUser._id)){
-    req.flash("error", "you are not the author of this review");
-    res.redirect(`/products/${id}`)
-  } else {
-    let deleteReview = await review.findByIdAndDelete(reviewId);
-    deleteObjId = await product.findByIdAndUpdate(id, {
-      $pull: { reviews: reviewId },
-    });
-    res.redirect(`/products/${id}`);
-    
+  const foundReview = await review.findById(reviewId);
+  if (!foundReview) {
+    req.flash("error", "Review not found!");
+    return res.redirect(`/products/${id}`);
   }
- 
+  if (!foundReview.author.equals(res.locals.currUser._id)) {
+    req.flash("error", "You are not the author of this review");
+    return res.redirect(`/products/${id}`);
+  }
+  await review.findByIdAndDelete(reviewId);
+  await product.findByIdAndUpdate(id, {
+    $pull: { reviews: reviewId },
+  });
+  res.redirect(`/products/${id}`);
 }));
+
 
 module.exports = router;

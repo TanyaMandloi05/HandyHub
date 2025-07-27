@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const schema = mongoose.Schema;
 const review = require("./review");
+const { ref } = require("joi");
 
 const productSchema = new schema({
   title: {
@@ -31,6 +32,10 @@ const productSchema = new schema({
     required: true,
   },
 
+   sellerId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User", 
+  },
   category: {
     type: String,
     enum: [

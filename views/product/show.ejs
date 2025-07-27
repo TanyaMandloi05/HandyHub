@@ -27,7 +27,10 @@
       <p><%= Product.description %></p>
       <p class="mfg">MFG: <%= Product.mfg %></p>
       <p class="category">Category: <%= Product.category %></p>
-      <button class="btn cart_btn">Add to cart</button>
+      <form action="/cart/<%= Product._id %>" method="POST" class="d-inline">
+  <button class="btn cart_btn">Add to Cart</button>
+</form>
+
       <button class="btn buy_btn">Buy Now</button>
     </div>
   </div>

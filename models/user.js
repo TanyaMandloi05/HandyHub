@@ -6,6 +6,7 @@ const userSchema = new schema({
     name: String,
     email: {type: String, unique: true, required: true},
     googleId: String,
+    // wishlist: [{ type: mongoose.Schema.Types.ObjectId, ref: 'product' }]
 });
 
 userSchema.plugin(passportLocalMongoose);

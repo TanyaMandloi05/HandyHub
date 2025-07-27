@@ -15,6 +15,8 @@ const productRouter = require("./routes/product");
 const reviewRouter = require("./routes/rating");
 const wishlistRouter = require("./routes/wishlist");
 const userRouter = require("./routes/user");
+const cartRouter = require("./routes/cart");
+const dashBoardRouter = require("./routes/dashboard");
 const flash = require('connect-flash');
 const ExpressError = require("./utils/ExpressError");
 
@@ -92,9 +94,9 @@ app.use((req, res, next) => {
   next();
 })
 
-app.get("/user/dashboard", (req, res) => {
-  res.render("user/dashBoard.ejs");
-})
+// app.get("/user/dashboard", (req, res) => {
+//   res.render("user/dashBoard.ejs");
+// })
 
 
 
@@ -102,6 +104,8 @@ app.use("/products", productRouter);
 app.use("/products/:id/reviews", reviewRouter);
 app.use("/wishlist", wishlistRouter);
 app.use(userRouter);
+app.use("/cart", cartRouter);
+app.use(dashBoardRouter);
 
 app.get("/wishlist", (req, res) => {
   res.render("wishlistAndCart/wishlist.ejs");
@@ -125,7 +129,7 @@ app.listen(port, () => {
 //   next(new ExpressError(404, "Bad request"));
 // })
 
-// app.use((err, req, res, next) => {
-//   let{statusCode="500", message="something went wrong"} = err;
-//   res.status(statusCode).send(message);
-// })
+app.use((err, req, res, next) => {
+  let{statusCode="500", message="something went wrong"} = err;
+  res.status(statusCode).send(message);
+})
