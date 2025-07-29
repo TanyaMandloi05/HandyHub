@@ -16,16 +16,16 @@ router.post(
   isLoggedIn, // optional: protect route
   upload.single("ProductImage"),
   wrapAsync(async (req, res) => {
-    const { title, actualPrice, category, mfg, description } = req.body;
+    const { title, actualPrice, category, mfg, description, oldPrice } = req.body;
 
-    const oldPrice = parseFloat(actualPrice);
-    const price = parseFloat((oldPrice * 1.2).toFixed(2));
+    // const oldPrice = parseFloat(actualPrice);
+    // const price = parseFloat((oldPrice * 1.2).toFixed(2));
 
     const newProduct = new product({
       title,
       image: req.file?.path || "", // fallback if no image
       oldPrice,
-      price,
+      price: actualPrice,
       sellerId: req.user._id, // assuming logged-in user
       category,
       mfg,

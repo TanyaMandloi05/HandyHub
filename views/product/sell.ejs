@@ -3,7 +3,7 @@
   <div class="form-container offset-md-2">
     <!-- Header -->
     <div class="form-header">
-      <div class="markup-badge">+20%</div>
+      <div class="markup-badge">-20%</div>
       <h1 class="form-title">New Product</h1>
     </div>
 
@@ -69,22 +69,20 @@
 
         <!-- Selling Price -->
         <div class="form-group">
-          <label for="sellingPrice" class="form-label">Selling Price</label>
+          <label for="oldPrice" class="form-label">Old Price</label>
           <div class="price-input-group">
             <span class="currency-symbol">₹</span>
             <input
               type="number"
-              class="form-input price-input readonly-input"
-              id="sellingPrice"
-              name="sellingPrice"
+              class="form-input price-input"
+              id="oldPrice"
+              name="oldPrice"
               placeholder="0.00"
-              step="0.01"
-              readonly
             />
           </div>
-          <div class="markup-note">
+          <!-- <div class="markup-note">
             Automatically calculated with 20% markup
-          </div>
+          </div> -->
         </div>
 
         <!-- Description -->
@@ -161,13 +159,13 @@
   const previewOriginal = document.getElementById("previewOriginal");
   const previewSelling = document.getElementById("previewSelling");
 
-  // Calculate selling price with 20% markup
-  function calculateSellingPrice() {
-    const actualPrice = parseFloat(actualPriceInput.value) || 0;
-    const sellingPrice = (actualPrice * 1.2).toFixed(2);
-    sellingPriceInput.value = sellingPrice;
-    updatePreview();
-  }
+//   // Calculate selling price with 20% markup
+//   function calculateSellingPrice() {
+//     const actualPrice = parseFloat(actualPriceInput.value) || 0;
+//     const sellingPrice = (actualPrice * 1.2).toFixed(2);
+//     sellingPriceInput.value = sellingPrice;
+//     updatePreview();
+//   }
 
   // Update live preview
   function updatePreview() {
