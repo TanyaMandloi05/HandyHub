@@ -7,7 +7,6 @@ const { isLoggedIn } = require("../middleware");
 
 router.post("/:productId", isLoggedIn, async (req, res) => {
   const { productId } = req.params;
-  console.log(productId);
   const userId = req.user._id;
 
   const alreadyInWishlist = await Wishlist.findOne({

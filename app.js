@@ -17,6 +17,7 @@ const wishlistRouter = require("./routes/wishlist");
 const userRouter = require("./routes/user");
 const cartRouter = require("./routes/cart");
 const dashBoardRouter = require("./routes/dashboard");
+const sellRouter = require("./routes/sell");
 const flash = require('connect-flash');
 const ExpressError = require("./utils/ExpressError");
 
@@ -106,6 +107,7 @@ app.use("/wishlist", wishlistRouter);
 app.use(userRouter);
 app.use("/cart", cartRouter);
 app.use(dashBoardRouter);
+app.use("/sell", sellRouter);
 
 app.get("/wishlist", (req, res) => {
   res.render("wishlistAndCart/wishlist.ejs");

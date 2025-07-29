@@ -15,9 +15,6 @@ router.get("/user/dashboard", isLoggedIn, async(req, res) => {
     //  const User = await user.findById(req.user._id).populate("wishlist");
     //  const wishlistCount = User.wishlist.length;
      const wishlistCount = await wishlist.countDocuments({ user: req.user._id });
-    
-     console.log(wishlistCount);
-
      res.render("user/dashBoard", {username, email, wishlistCount})
 });
 
