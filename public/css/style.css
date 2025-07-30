@@ -1098,4 +1098,12 @@ h3 {
         100% { left: 100%; }
     }
 
+.small-card {
+  border-radius: 12px;
+  min-height: 260px;
+}
+.product-img-placeholder {
+  border: 1px dashed #ccc;
+  border-radius: 8px;
+}
     
