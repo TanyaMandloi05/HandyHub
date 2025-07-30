@@ -10,12 +10,12 @@ router.get("/user/dashboard", isLoggedIn, async(req, res) => {
     const username  = req.user.username;
     const email = req.user.email;
 
-    // const productCount = product.countDocuments({sellerId: req.user._id});
+    const productCount = await product.countDocuments({sellerId: req.user._id});
     //   const orderCount = await Order.countDocuments({ buyer: req.user._id });
     //  const User = await user.findById(req.user._id).populate("wishlist");
     //  const wishlistCount = User.wishlist.length;
      const wishlistCount = await wishlist.countDocuments({ user: req.user._id });
-     res.render("user/dashBoard", {username, email, wishlistCount})
+     res.render("user/dashBoard", {username, email, wishlistCount, productCount});
 });
 
 module.exports = router;
