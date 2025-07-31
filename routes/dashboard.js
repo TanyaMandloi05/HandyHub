@@ -16,7 +16,7 @@ router.get("/user/dashboard", isLoggedIn, async(req, res) => {
     //  const wishlistCount = User.wishlist.length;
      const wishlistCount = await wishlist.countDocuments({ user: req.user._id });
     const userProducts = await product.find({ sellerId: req.user._id });
-     res.render("user/dashBoard", {username, email, wishlistCount, productCount, userProducts});
+     res.render("dashboard/userDashBoard", {username, email, wishlistCount, productCount, userProducts});
 });
 
 module.exports = router;

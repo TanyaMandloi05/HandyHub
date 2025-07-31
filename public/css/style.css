@@ -1107,3 +1107,22 @@ h3 {
   border-radius: 8px;
 }
     
+/* my products cards */
+.update, .dlt {
+    text-align: center;
+    border: 1px solid #718096;
+    width: 8rem;
+    font-weight: 700;
+}
+
+.update:hover{
+  border: 2px solid #3b82f6;
+  color: #3b82f6;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+.dlt:hover{
+  border: 2px solid red;
+  color: red;
+  box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.25);
+}

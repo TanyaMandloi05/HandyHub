@@ -38,4 +38,41 @@ router.post(
   })
 );
 
+router.get("/products/:id/edit", isLoggedIn, wrapAsync(async(req, res) => {
+    const { id } = req.params;
+    
+    foundProduct = await product.findById(id);
+    console.log(foundProduct);
+
+    if(!foundProduct) {
+      req.flash("error", "Product not found");
+        return res.redirect("/products");
+    }
+    
+    res.render("dashboard/productEdit", {foundProduct});
+}));
+
+router.put("/products/:id/update", upload.single("ProductImage"),isLoggedIn, wrapAsync(async(req, res) => {
+    const { id } = req.params;
+    const updatedData = req.body
+    if (req.file) {
+      updatedData.image = req.file.path;
+    }
+    const Product = await product.findByIdAndUpdate(id, updatedData);
+
+    await Product.save();
+
+    req.flash("success", "Product updated successfully!");
+    res.redirect("/products");
+}))
+
+router.delete("/products/:id", isLoggedIn, wrapAsync(async(req, res) => {
+    const { id } = req.params;
+   await product.findByIdAndDelete(id);
+  req.flash("success", "Product deleted successfully");
+  res.redirect("/user/dashboard");
+}));
+
+
+
 module.exports = router;
