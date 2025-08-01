@@ -21,26 +21,26 @@ const sellRouter = require("./routes/sell");
 const flash = require('connect-flash');
 const ExpressError = require("./utils/ExpressError");
 
-const port = 8080;
+// const port = 8080;
 
-main()
-  .then(() => {
-    console.log("connected to DB");
-  })
-  .catch((err) => {
-    console.log(err);
-  });
+// main()
+//   .then(() => {
+//     console.log("connected to DB");
+//   })
+//   .catch((err) => {
+//     console.log(err);
+//   });
 
-async function main() {
-  await mongoose.connect("mongodb://127.0.0.1:27017/product");
-}
+// async function main() {
+//   await mongoose.connect("mongodb://127.0.0.1:27017/product");
+// }
 
-// mongoose.connect(process.env.MONGO_URL, {
-//     useNewUrlParser: true,
-//     useUnifiedTopology: true
-// })
-//     .then(() => console.log(" Connected to MongoDB"))
-//     .catch((err) => console.error("MongoDB Error:", err));
+mongoose.connect(process.env.MONGO_URL, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+})
+    .then(() => console.log(" Connected to MongoDB"))
+    .catch((err) => console.error("MongoDB Error:", err));
 
 
 
@@ -118,14 +118,14 @@ app.get("/home", (req, res) => {
   res.render("product/home");
 });
 
-app.listen(port, () => {
-  console.log("app is listening to the port 8080");
-});
-
-// const PORT = process.env.PORT || 4000;
-// app.listen(PORT, () => {
-//     console.log(`Server listening on http://localhost:${PORT}`);
+// app.listen(port, () => {
+//   console.log("app is listening to the port 8080");
 // });
+
+const PORT = process.env.PORT || 4000;
+app.listen(PORT, () => {
+    console.log(`Server listening on http://localhost:${PORT}`);
+});
 
 // app.all("*", (req, res, next) => {
 //   next(new ExpressError(404, "Bad request"));

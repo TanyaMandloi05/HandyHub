@@ -47,7 +47,7 @@
     <div class="row offset-2 mb-5 d-flex justify-content-center">
       <% for(reviews of Product.reviews) {%>
       <div class="col-10 card mt-3">
-        <h5 class="mt-4"><%= reviews.author.username%></h5>
+        <h5 class="mt-4"><%= reviews.author.name%></h5>
         <p class="starability-result card-text" data-rating = <%= reviews.rating %>></p>
         <p>
          <%= reviews.comment %>

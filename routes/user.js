@@ -13,8 +13,8 @@ router.get("/login", (req, res) => {
 });
 
 router.post("/signup", wrapAsync(async (req, res) => {
-  let { username, email, password } = req.body;
-  let newUser = new user({ username, email });
+  let { username, email, password, name } = req.body;
+  let newUser = new user({ username, email, name });
   let registerUser = await user.register(newUser, password);
   req.login(registerUser, (err) => {
     if(err) {
@@ -25,7 +25,7 @@ router.post("/signup", wrapAsync(async (req, res) => {
     res.redirect("/home");
   });
   
-  console.log(registerUser);
+  // console.log(registerUser);
 }));
 
 router.post(
