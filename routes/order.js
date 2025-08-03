@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Order = require("../models/order");
 const product = require("../models/product");
+const Cart = require("../models/cart");
 const { isLoggedIn } = require("../middleware");
 const wrapAsync = require("../utils/wrapAsync");
 
@@ -22,6 +23,42 @@ router.post("/buy/:productId", isLoggedIn, wrapAsync(async (req, res) => {
   req.flash("success", "Order placed successfully!");
   res.render("order/order");
 }));
+
+
+router.post("/checkout", isLoggedIn, wrapAsync(async (req, res) => {
+  const userId = req.user._id;
+
+  const userCart = await Cart.findOne({ user: userId }).populate("items.product");
+
+  if (!userCart || userCart.items.length === 0) {
+    req.flash("error", "Your cart is empty!");
+    return res.redirect("/cart");
+  }
+
+  const orderProducts = userCart.items.map(item => ({
+    product: item.product._id,
+    quantity: item.quantity
+  }));
+
+  const totalPrice = userCart.items.reduce((sum, item) => {
+    return sum + item.product.price * item.quantity;
+  }, 0);
+
+  const newOrder = new Order({
+    buyer: userId,
+    products: orderProducts,
+    totalPrice
+  });
+
+  await newOrder.save();
+
+  // Clear the cart
+  await Cart.findOneAndDelete({ user: userId });
+
+  req.flash("success", "Order placed successfully!");
+  res.redirect("/order/myorders");
+}));
+
 
 router.get("/myorders", isLoggedIn, wrapAsync(async (req, res) => {
   const orders = await Order.find({ buyer: req.user._id }).populate("products.product");
