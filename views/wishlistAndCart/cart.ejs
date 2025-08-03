@@ -136,11 +136,12 @@
   <div class="row justify-content-center mt-4">
     <div class="col-md-6 text-center">
       <h4 class="fw-bold offset-lg-2 offset-0">Cart Total: ₹<%= total %></h4>
-      <a
-        href="/checkout"
-        class="btn buy_btn mt-3 px-4 py-2 offset-lg-2 offset-0"
-        >Proceed to Checkout</a
-      >
+      <form action="/order/checkout" method="POST" class="offset-lg-2 offset-0">
+  <button type="submit" class="btn buy_btn mt-3 px-4 py-2">
+    Proceed to Checkout
+  </button>
+</form>
+
     </div>
   </div>
   <% } %>

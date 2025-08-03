@@ -11,7 +11,7 @@
         </a>
       </div>
       <div class="nav-item mb-1">
-        <a href="#" class="nav-link d-flex align-items-center">
+        <a href="/order/myorders" class="nav-link d-flex align-items-center">
           <i class="fas fa-shopping-cart me-3"></i>
           <span>My Orders</span>
         </a>
@@ -89,7 +89,7 @@
                 <i class="fas fa-shopping-bag"></i>
               </div>
             </div>
-            <div class="stat-number">0</div>
+            <div class="stat-number"><%= orderCount %></div>
             <div class="stat-subtitle">Total purchases made</div>
           </div>
         </div>
@@ -121,11 +121,13 @@
             </a>
           </div>
           <div class="col-lg-4 col-md-6 mb-3">
+            <a href="/order/myorders" class="d-inline"></a>
             <button class="action-btn secondary-btn w-100">
               <i class="fas fa-shopping-cart me-2"></i>
               View Orders
             </button>
           </div>
+          </a>
           <div class="col-lg-4 col-md-6 mb-3">
             <button class="action-btn secondary-btn w-100">
               <i class="fas fa-heart me-2"></i>
@@ -172,11 +174,3 @@
   </div>
 </div>
 
-<script>
-  function scrollToProducts() {
-    const productSection = document.getElementById("my-products");
-    if (productSection) {
-      productSection.scrollIntoView({ behavior: "smooth" });
-    }
-  }
-</script>
