@@ -116,7 +116,7 @@ app.get("/wishlist", (req, res) => {
 })
 
 // home page
-app.get("/home", (req, res) => {
+app.get("/", (req, res) => {
   res.render("product/home");
 });
 

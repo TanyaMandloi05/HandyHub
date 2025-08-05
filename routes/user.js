@@ -22,7 +22,7 @@ router.post("/signup", wrapAsync(async (req, res) => {
     }
 
     req.flash("success, signup successfully");
-    res.redirect("/home");
+    res.redirect("/");
   });
   
   // console.log(registerUser);
@@ -35,7 +35,7 @@ router.post(
     failureFlash: true,
   }),
   async (req, res) => {
-    res.redirect("/home");
+    res.redirect("/");
   }
 );
 
@@ -46,7 +46,7 @@ router.get("/logout", (req, res, next) => {
         }
 
         req.flash("success", "logged Out !!");
-        res.redirect("/home");
+        res.redirect("/");
     })
 })
 

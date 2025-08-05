@@ -60,12 +60,7 @@
                 <% } %>
               </td>
               <td class="text-center py-3">
-                <form action="/cart/add" method="POST">
-                  <input
-                    type="hidden"
-                    name="productId"
-                    value="<%= item.product._id %>"
-                  />
+                <form action="/cart/<%= item.product._id %>" method="POST">
                   <button
                     type="submit"
                     class="btn btn-dark btn-sm px-3 py-2 fw-semibold"
