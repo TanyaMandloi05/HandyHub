@@ -1,4 +1,4 @@
-require('dotenv').config();
+require("dotenv").config();
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -6,7 +6,7 @@ const path = require("path");
 const ejsMate = require("ejs-mate");
 const methodOverride = require("method-override");
 const session = require("express-session");
-const MongoStore = require('connect-mongo');
+const MongoStore = require("connect-mongo");
 const user = require("./models/user");
 const passport = require("passport");
 const googleStrategy = require("passport-google-oauth20").Strategy;
@@ -20,32 +20,16 @@ const dashBoardRouter = require("./routes/dashboard");
 const sellRouter = require("./routes/sell");
 const orderRoute = require("./routes/order");
 const contactRoute = require("./routes/contact");
-const flash = require('connect-flash');
+const flash = require("connect-flash");
 const ExpressError = require("./utils/ExpressError");
 
-// const port = 8080;
-
-// main()
-//   .then(() => {
-//     console.log("connected to DB");
-//   })
-//   .catch((err) => {
-//     console.log(err);
-//   });
-
-// async function main() {
-//   await mongoose.connect("mongodb://127.0.0.1:27017/product");
-// }
-
-mongoose.connect(process.env.MONGO_URL, {
+mongoose
+  .connect(process.env.MONGO_URL, {
     useNewUrlParser: true,
-    useUnifiedTopology: true
-})
-    .then(() => console.log(" Connected to MongoDB"))
-    .catch((err) => console.error("MongoDB Error:", err));
-
-
-
+    useUnifiedTopology: true,
+  })
+  .then(() => console.log(" Connected to MongoDB"))
+  .catch((err) => console.error("MongoDB Error:", err));
 
 app.use(methodOverride("_method"));
 app.set("view engine", "ejs");
@@ -58,15 +42,15 @@ app.use("/images", express.static(path.join(__dirname, "images")));
 app.use(flash());
 
 const store = MongoStore.create({
-    mongoUrl: "mongodb://127.0.0.1:27017/product",
-    crypto: {
-        secret: process.env.SECRET,
-    },
-    touchAfter: 24*3600,
+  mongoUrl: process.env.MONGO_URL,
+  crypto: {
+    secret: process.env.SECRET,
+  },
+  touchAfter: 24 * 3600,
 });
 
 store.on("error", () => {
-    console.log("ERROR in MONGO SESSION STORE", err);
+  console.log("ERROR in MONGO SESSION STORE", err);
 });
 
 const sessionOpt = {
@@ -95,13 +79,11 @@ app.use((req, res, next) => {
   res.locals.error = req.flash("error");
   res.locals.currUser = req.user;
   next();
-})
+});
 
 // app.get("/user/dashboard", (req, res) => {
 //   res.render("user/dashBoard.ejs");
 // })
-
-
 
 app.use("/products", productRouter);
 app.use("/products/:id/reviews", reviewRouter);
@@ -115,7 +97,7 @@ app.use("/contact", contactRoute);
 
 app.get("/wishlist", (req, res) => {
   res.render("wishlistAndCart/wishlist.ejs");
-})
+});
 
 // home page
 app.get("/", (req, res) => {
@@ -128,7 +110,7 @@ app.get("/", (req, res) => {
 
 const PORT = process.env.PORT || 4000;
 app.listen(PORT, () => {
-    console.log(`Server listening on http://localhost:${PORT}`);
+  console.log(`Server listening on http://localhost:${PORT}`);
 });
 
 // app.all("*", (req, res, next) => {
@@ -136,6 +118,6 @@ app.listen(PORT, () => {
 // })
 
 app.use((err, req, res, next) => {
-  let{statusCode="500", message="something went wrong"} = err;
+  let { statusCode = "500", message = "something went wrong" } = err;
   res.status(statusCode).send(message);
-})
+});
