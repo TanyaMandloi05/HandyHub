@@ -13,7 +13,7 @@ router.get("" , isLoggedIn, wrapAsync(async(req, res) => {
 
 router.post(
   "/products/add",
-  isLoggedIn, // optional: protect route
+  isLoggedIn, 
   upload.single("ProductImage"),
   wrapAsync(async (req, res) => {
     const { title, actualPrice, category, mfg, description, oldPrice } = req.body;
@@ -23,10 +23,10 @@ router.post(
 
     const newProduct = new product({
       title,
-      image: req.file?.path || "", // fallback if no image
+      image: req.file?.path || "", 
       oldPrice,
       price: actualPrice,
-      sellerId: req.user._id, // assuming logged-in user
+      sellerId: req.user._id, 
       category,
       mfg,
       description,
@@ -72,7 +72,5 @@ router.delete("/products/:id", isLoggedIn, wrapAsync(async(req, res) => {
   req.flash("success", "Product deleted successfully");
   res.redirect("/user/dashboard");
 }));
-
-
 
 module.exports = router;
